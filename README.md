@@ -34,10 +34,7 @@
     ```
     pip3 install -r requirments.txt
     ```
-
-- 간략한 코드 수정
-    <img width="443" alt="스크린샷 2023-05-27 오전 1 53 48" src="https://github.com/LeeJuHwan/automatical_capture_macOS/assets/118493627/f1d8b8b5-49e5-40b4-bb82-5714fd3f4533">
-
+- 입력 인자 값
     - range 범위 : PDF 전체 페이지 개 수
     - sleep 시간 : 코드를 실행 한 후 얼마 뒤 캡쳐 프로세스가 실행 될 지
     
@@ -45,11 +42,11 @@
     - system arguments help command
         ```
         optional arguments:
-    -h, --help            show this help message and exit
-    -t TIME, --time TIME  Run process after wait time >> default =
-                            1
-    -p PAGE, --page PAGE  Count of pages in PDF viewr. this is
-                            most parameter
+        -h, --help            show this help message and exit
+        -t TIME, --time TIME  Run process after wait time >> default =
+                                1
+        -p PAGE, --page PAGE  Count of pages in PDF viewr. this is
+                                most parameter
         ```
 
     e.g                    
