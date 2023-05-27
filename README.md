@@ -8,11 +8,7 @@
 > 코드 프로세스
 - 사전 작업
     - shift + command + 5를 누르고, PDF의 캡쳐가 필요한 부분의 프레임을 맞춰줍니다. -> 이때, 프레임은 다음 페이지를 넘겼을 때도 전체가 나오게 유지 해야 합니다. (전체화면 + 105% + 90% 축소)
-    <img width="1122" alt="스크린샷 2023-05-27 오전 1 45 51" src="https://github.com/LeeJuHwan/automatical_capture_macOS/assets/118493627/c12c1c4a-856a-4906-915b-12164424686f">
-
     - 불필요한 옵션을 제거 합니다. -> 미리보기 썸네일 체크 해제, 마우스 포인터 보기 체크 해제
-    <img width="1147" alt="스크린샷 2023-05-27 오전 1 47 00" src="https://github.com/LeeJuHwan/automatical_capture_macOS/assets/118493627/7b62b7ff-3e66-4fac-9b88-ca1611f3344f">
-
     - 위 단계에서 보이는 다른 위치를 설정 하여 스크린샷을 생성할 폴더를 지정합니다.
 
     
