@@ -34,6 +34,10 @@
 
 ### 실행
 - git clone
+- install library
+    ```
+    pip3 install -r requirments.txt
+    ```
 
 - 간략한 코드 수정
     <img width="443" alt="스크린샷 2023-05-27 오전 1 53 48" src="https://github.com/LeeJuHwan/automatical_capture_macOS/assets/118493627/f1d8b8b5-49e5-40b4-bb82-5714fd3f4533">

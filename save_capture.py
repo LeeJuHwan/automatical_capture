@@ -6,14 +6,13 @@ keyboard_key = pynput.keyboard.Key
 
 
 def press_keys(keys):
-    keyboard_controller = pynput.keyboard.Controller()
     for key in keys:
-        keyboard_controller.press(key)
+        keyboard_button.press(key)
 
     time.sleep(0.1)
 
     for key in keys:
-        keyboard_controller.release(key)
+        keyboard_button.release(key)
 
 
 def keyboard_con():
@@ -33,5 +32,5 @@ def keyboard_con():
 
 if __name__ == "__main__":
     time.sleep(1)
-    for _ in range(274):  # PDF 페이지 개 수
+    for _ in range(606):  # PDF 페이지 개 수
         keyboard_con()
