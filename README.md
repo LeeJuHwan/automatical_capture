@@ -42,6 +42,17 @@
     - sleep 시간 : 코드를 실행 한 후 얼마 뒤 캡쳐 프로세스가 실행 될 지
     
 - python run
+    - system arguments help command
+        ```
+        optional arguments:
+    -h, --help            show this help message and exit
+    -t TIME, --time TIME  Run process after wait time >> default =
+                            1
+    -p PAGE, --page PAGE  Count of pages in PDF viewr. this is
+                            most parameter
+        ```
+
+    e.g                    
     ```
-    python3 save_capture.py
+    python3 save_capture.py -t 5 -p 1
     ```

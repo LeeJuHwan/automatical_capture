@@ -1,8 +1,32 @@
 import pynput
 import time
+import argparse
 
 keyboard_button = pynput.keyboard.Controller()
 keyboard_key = pynput.keyboard.Key
+
+
+def optional():
+    parser = argparse.ArgumentParser(
+        description="System parameter by capture optional params"
+    )
+    parser.add_argument(
+        "-t",
+        "--time",
+        default=1,
+        type=int,
+        help="Run process after wait time >> default = 1",
+    )
+    parser.add_argument(
+        "-p",
+        "--page",
+        type=int,
+        help="Count of pages in PDF viewr. this is most parameter",
+    )
+
+    args = parser.parse_args()
+
+    return args
 
 
 def press_keys(keys):
@@ -30,7 +54,12 @@ def keyboard_con():
     press_keys([pynput.keyboard.Key.right])
 
 
+system_args = optional()
+run_after_wait_second = system_args.time
+count_of_page = system_args.page
+
+
 if __name__ == "__main__":
-    time.sleep(1)
-    for _ in range(606):  # PDF 페이지 개 수
+    time.sleep(run_after_wait_second)
+    for _ in range(count_of_page):  # PDF 페이지 개 수
         keyboard_con()
