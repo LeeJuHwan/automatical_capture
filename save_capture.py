@@ -1,65 +1,40 @@
-import pynput
+"""PDF viewr에서 각 페이지를 캡쳐 하는 반 자동화 프로세스"""
+from setup import (
+    setup_files,
+    setup_optional_args as setup_option,
+    setup_directory as setup_dir,
+    setup_keyboard as setup_key,
+)
 import time
-import argparse
-
-keyboard_button = pynput.keyboard.Controller()
-keyboard_key = pynput.keyboard.Key
 
 
-def optional():
-    parser = argparse.ArgumentParser(
-        description="System parameter by capture optional params"
-    )
-    parser.add_argument(
-        "-t",
-        "--time",
-        default=1,
-        type=int,
-        help="Run process after wait time >> default = 1",
-    )
-    parser.add_argument(
-        "-p",
-        "--page",
-        type=int,
-        help="Count of pages in PDF viewr. this is most parameter",
-    )
+class Capture:
+    def __init__(self):
+        system_args = setup_option.optional()
+        self.excute_after_wait_second = system_args.time
+        self.count_of_pages = system_args.page
+        self.is_remove_all_screenshot = bool(int(system_args.remove))
 
-    args = parser.parse_args()
+    def execute(self):
+        setup_files.change_screenshot_file_name("0")
+        SCREENSHOT_FOLDER = setup_dir.create_screenshot_directory()
+        PDF_FOLDER = setup_dir.create_pdf_folder()
 
-    return args
+        setup_dir.setup_screenshot_directory(SCREENSHOT_FOLDER)
+        time.sleep(self.excute_after_wait_second)
+        for _ in range(self.count_of_pages):
+            setup_key.keyboard_controll()
 
+        images = setup_files.convert_rgb_images(SCREENSHOT_FOLDER)
+        setup_files.create_pdf_to_images(PDF_FOLDER, images)
 
-def press_keys(keys):
-    for key in keys:
-        keyboard_button.press(key)
+        setup_dir.reset_screenshot_directory()
+        setup_files.change_screenshot_file_name("1")
 
-    time.sleep(0.1)
-
-    for key in keys:
-        keyboard_button.release(key)
-
-
-def keyboard_con():
-    time.sleep(0.2)
-    press_keys(
-        [
-            pynput.keyboard.Key.shift,
-            pynput.keyboard.Key.cmd_l,
-            pynput.keyboard.KeyCode.from_char("5"),
-        ]
-    )
-    time.sleep(0.2)
-    press_keys([pynput.keyboard.Key.enter])
-    time.sleep(0.2)
-    press_keys([pynput.keyboard.Key.right])
-
-
-system_args = optional()
-run_after_wait_second = system_args.time
-count_of_page = system_args.page
+        if self.is_remove_all_screenshot:
+            setup_files.remove_screenshot_files(SCREENSHOT_FOLDER)
 
 
 if __name__ == "__main__":
-    time.sleep(run_after_wait_second)
-    for _ in range(count_of_page):  # PDF 페이지 개 수
-        keyboard_con()
+    capture = Capture()
+    capture.execute()
