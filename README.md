@@ -1,4 +1,4 @@
-# automatical_capture_macOS
+# automatical_capture_from_macOS_hotkey
 
 ### auto PDF Capture program
 > 라이브러리
