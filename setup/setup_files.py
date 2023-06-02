@@ -46,6 +46,7 @@ def convert_rgb_images(screenshot_folder):
 def create_pdf_to_images(pdf_folder, images):
     """스크린샷 파일들을 하나의 PDF로 생성 합니다."""
     pdf_file_name = os.path.join(pdf_folder, "capture.pdf")
+
     images[0].save(pdf_file_name, save_all=True, append_images=images[1:])
 
 
