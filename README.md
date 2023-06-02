@@ -42,7 +42,7 @@
 
 
 ### 코드 작성자의 의도
-- 반복 캡쳐가 필요한 상황에서 사용자 입력 값에 맞게 단축키를 눌러줄 수 있습니다. 이때, 단축키는 setup_keyboard에서 변경 할 수 있고 관련 내용은 라이브러리 공식 문서를 참고 하여 수정 할 수 있습니다.
+- 반복 캡쳐가 필요한 상황에서 사용자 입력 값에 맞게 단축키를 눌러줄 수 있습니다. 이때, 단축키는 [setup_keyboard](https://github.com/LeeJuHwan/automatical_capture_macOS/blob/main/setup/setup_keyboard.py)에서 변경 할 수 있고 관련 내용은 라이브러리 공식 문서를 참고 하여 수정 할 수 있습니다.
 
 
 ### 실행
