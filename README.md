@@ -63,7 +63,7 @@
                                 Is saved screenshot files remove all >> 0: keep 1: delete | default = 1
         ```
 
-    e.g -> want to custmize value                    
+    e.g -> want to customize value                    
     ```
     python3 save_capture.py -t 5 -p 1 -r 0 or 1
     ```
