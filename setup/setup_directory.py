@@ -1,9 +1,9 @@
 import os
 import subprocess
+from pathlib import Path
 
 
-WORKING_DIRECTORY = "/".join(os.path.realpath(__file__).split("/")[:-2])
-print("WORKING:", WORKING_DIRECTORY)
+WORKING_DIRECTORY = Path(os.path.dirname(__file__)).parent
 
 
 def create_screenshot_directory():
