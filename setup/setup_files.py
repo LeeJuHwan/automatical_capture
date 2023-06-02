@@ -6,6 +6,17 @@ from setup.setup_directory import create_screenshot_directory
 import re
 
 
+def change_preview_options(boolean_param):
+    """
+    맥북 캡쳐시 썸네일 미리보기 옵션을 변경합니다.
+
+    false: 썸네일 미리보기 끄기
+    true: 썸네일 미리보기 켜기
+    """
+    cmd = f"defaults write com.apple.screencapture show-thumbnail -bool {boolean_param}"
+    subprocess.run(["/bin/bash", "-c", cmd])
+
+
 def change_screenshot_file_name(flag):
     """
     스크린샷 파일명을 날짜 기준이 아닌 숫자로 변경 합니다.
