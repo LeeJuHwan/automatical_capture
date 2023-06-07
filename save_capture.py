@@ -14,6 +14,7 @@ class Capture:
         self.excute_after_wait_second = system_args.time
         self.count_of_pages = system_args.page
         self.is_remove_all_screenshot = bool(int(system_args.remove))
+        self.is_convert_images_to_pdf = bool(int(system_args.convert))
 
     def execute(self):
         setup_files.change_screenshot_file_name("0")
@@ -26,8 +27,9 @@ class Capture:
         for _ in range(self.count_of_pages):
             setup_key.keyboard_controll()
 
-        images = setup_files.convert_rgb_images(SCREENSHOT_FOLDER)
-        setup_files.create_pdf_to_images(PDF_FOLDER, images)
+        if self.is_convert_images_to_pdf:
+            images = setup_files.convert_rgb_images(SCREENSHOT_FOLDER)
+            setup_files.create_pdf_to_images(PDF_FOLDER, images)
 
         setup_dir.reset_screenshot_directory()
         setup_files.change_screenshot_file_name("1")

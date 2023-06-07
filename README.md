@@ -59,6 +59,9 @@
         -p PAGE, --page PAGE  Count of pages in PDF viewr. this is most parameter
         -r {0,1}, --remove {0,1}
                                 Is saved screenshot files remove all >> 0: keep 1: delete | default = 1
+
+        -c {0,1}, --convert {0,1}
+                                Is screenshot images to PDF >> 0: False 1: True | default = 1
         ```
 
     e.g -> want to customize value                    

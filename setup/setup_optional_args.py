@@ -27,6 +27,13 @@ def optional():
         help="Is saved screenshot files remove all >> 0: keep  1: delete | default = 1",
     )
 
+    parser.add_argument(
+        "-c",
+        "--convert",
+        choices=["0", "1"],
+        default=1,
+        help="Is screenshot images to PDF >> 0: False  1: True | default = 1",
+    )
     args = parser.parse_args()
 
     return args
