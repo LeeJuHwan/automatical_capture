@@ -66,7 +66,7 @@
 
     e.g -> want to customize value                    
     ```
-    python3 save_capture.py -t 5 -p 1 -r 0 or 1
+    python3 save_capture.py -t 5 -p 1 -r 0 or 1 -c 0 or 1
     ```
     
     e.g2 -> using default value
