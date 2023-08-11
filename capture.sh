@@ -16,7 +16,7 @@ do
 	if [ "$INDEX" = "1" ]; then
 		while :
 		do
-			echo "========== QR Pay Scripts =========="
+			echo "========== Scripts list =========="
 	       		printf "1: %-10s\n" "CAPTURE PAGE"
         		printf "2: %-10s\n" "MODIFY PARAMETER"
 		        echo "q: TO QUIT"
