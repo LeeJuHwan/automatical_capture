@@ -68,8 +68,17 @@
     ```
     python3 save_capture.py -t 5 -p 1 -r 0 or 1 -c 0 or 1
     ```
-    
+
     e.g2 -> using default value
     ```
     python3 save_capture.py -p 700
     ```
+    
+
+- shell script
+  ```
+  sh capture.py
+  ```
+
+파이썬을 직접적으로 커맨드 라인을 통해 실행 할 수 있지만, 쉘 스크립트를 통해 대화형 커널로 페이지를 입력 하는 방법도 사용 할 수 있습니다.
+
