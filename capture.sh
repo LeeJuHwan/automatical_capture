@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PYTHON_FILE=save_capture.py
+PYTHON_FILE=./save_capture.py
 
 
 while :
