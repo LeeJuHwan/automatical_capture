@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 import pynput
 import time
+from typing import List
 
 
 class KeyboardController(metaclass=ABCMeta):
@@ -8,12 +9,12 @@ class KeyboardController(metaclass=ABCMeta):
         """
         Each operation systems use another hotkey
         MacOS: built-in capture program to fix frame size capture
-        WindowOS: Full screen capture to clipboard    
+        WindowOS: Full screen capture to clipboard
         """
         self.controller = pynput.keyboard.Controller()
         self.keyboard_key = pynput.keyboard.Key
 
-    def press_keys(self, keys):
+    def press_keys(self, keys: List[pynput.keyboard.Key]):
         """실제 입력 할 키 배열을 받아 적용 합니다."""
 
         for key in keys:
@@ -23,7 +24,6 @@ class KeyboardController(metaclass=ABCMeta):
 
         for key in keys:
             self.controller.release(key)
-
 
     def keyboard_controll(self):
         """입력할 키보드 키 배열을 전달 합니다."""
@@ -44,7 +44,7 @@ class KeyboardController(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def take_a_screenshot(self): 
+    def take_a_screenshot(self):
         """Take a screenshot to keyboard button"""
 
         # Mac OS
@@ -54,7 +54,7 @@ class KeyboardController(metaclass=ABCMeta):
     @abstractmethod
     def next_page(self):
         """Take a screenshot after, next page"""
-        
+
         # PDF web viewer
         # KEYBOARD_KEY.right
         pass

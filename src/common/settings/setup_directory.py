@@ -6,10 +6,10 @@ from pathlib import Path
 WORKING_DIRECTORY = Path(os.path.dirname(__file__)).parent.parent.parent
 
 
-def create_screenshot_directory():
+def create_directory(file_name):
     """스크린샷을 저장 할 폴더를 생성 합니다."""
 
-    create_directory_name = "screenshot"
+    create_directory_name = file_name
     capture_save_directory_path = os.path.join(WORKING_DIRECTORY, create_directory_name)
 
     if not os.path.exists(capture_save_directory_path):
@@ -30,15 +30,6 @@ def reset_screenshot_directory():
     cmd = "defaults delete com.apple.screencapture location"
     subprocess.run(["/bin/bash", "-c", cmd])
     subprocess.run(["killall", "SystemUIServer"])
-
-
-def create_pdf_folder():
-    """생성할 PDF를 저장 할 폴더를 생성 합니다."""
-    create_pdf_folder_path = os.path.join(WORKING_DIRECTORY, "pdf")
-    if not os.path.exists(create_pdf_folder_path):
-        os.makedirs(create_pdf_folder_path)
-
-    return create_pdf_folder_path
 
 
 if __name__ == "__main__":

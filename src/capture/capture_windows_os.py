@@ -6,6 +6,7 @@ from common.settings import (
     setup_keyboard as setup_key,
 )
 
+
 class CaptureWindowsOS(setup_key.KeyboardController):
     """using Mac OS hotkey"""
 
@@ -15,20 +16,32 @@ class CaptureWindowsOS(setup_key.KeyboardController):
         self.is_remove_all_screenshot = _is_remove_screenshot
         self.is_convert_images_to_pdf = _is_convert_pdf
         self.count_of_pages = _pages
-    
+
     def select_frame_size(self):
-        self.press_keys([self.keyboard_key.cmd_l, self.keyboard_key.alt_l, self.keyboard_key.print_screen])
+        self.press_keys(
+            [
+                self.keyboard_key.cmd_l,
+                self.keyboard_key.alt_l,
+                self.keyboard_key.print_screen,
+            ]
+        )
 
     def take_a_screenshot(self):
-        self.press_keys([self.keyboard_key.cmd_l, self.keyboard_key.alt_l, self.keyboard_key.print_screen])
+        self.press_keys(
+            [
+                self.keyboard_key.cmd_l,
+                self.keyboard_key.alt_l,
+                self.keyboard_key.print_screen,
+            ]
+        )
 
     def next_page(self):
         self.press_keys([self.keyboard_key.right])
-    
+
     def execute(self):
         setup_files.change_screenshot_file_name("0")
-        SCREENSHOT_FOLDER = setup_dir.create_screenshot_directory()
-        PDF_FOLDER = setup_dir.create_pdf_folder()
+        SCREENSHOT_FOLDER = setup_dir.create_directory("screenshot")
+        PDF_FOLDER = setup_dir.create_directory("pdf")
 
         setup_dir.setup_screenshot_directory(SCREENSHOT_FOLDER)
         setup_files.change_preview_options("false")
