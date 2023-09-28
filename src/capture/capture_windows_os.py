@@ -27,8 +27,8 @@ class CaptureWindowsOS(setup_key.KeyboardController):
     
     def execute(self):
         setup_files.change_screenshot_file_name("0")
-        SCREENSHOT_FOLDER = setup_dir.create_screenshot_directory()
-        PDF_FOLDER = setup_dir.create_pdf_folder()
+        SCREENSHOT_FOLDER = setup_dir.create_directory("screenshot")
+        PDF_FOLDER = setup_dir.create_directory("pdf")
 
         setup_dir.setup_screenshot_directory(SCREENSHOT_FOLDER)
         setup_files.change_preview_options("false")

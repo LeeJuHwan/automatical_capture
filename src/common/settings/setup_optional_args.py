@@ -14,12 +14,6 @@ def optional():
         help="Run process after wait time >> default = 1",
     )
     parser.add_argument(
-        "-p",
-        "--page",
-        type=int,
-        help="Count of pages in PDF viewr. this is most parameter",
-    )
-    parser.add_argument(
         "-r",
         "--remove",
         choices=["0", "1"],
@@ -41,5 +35,4 @@ def optional():
 
 if __name__ == "__main__":
     print(optional().time)
-    print(optional().page)
     print(bool(int(optional().remove)))
