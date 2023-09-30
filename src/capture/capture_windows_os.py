@@ -1,7 +1,8 @@
 import numpy as np
 import os
+import pyautogui as pg
 import PIL
-from PIL import ImageGrab
+from PIL import ImageGrab, Image
 import time
 from common.settings import (
     setup_files,
@@ -29,8 +30,9 @@ class CaptureWindowsOS(setup_key.KeyboardController):
 
     def take_a_screenshot(self) -> PIL:
         _img = ImageGrab.grab(self.mouse_controller.bounding_box_position)  # screen capture -> PIL Object
-
-        return _img
+        new_size = (_img.width*2, _img.height*2)
+        better_quality_image = _img.resize(new_size, Image.LANCZOS)
+        return better_quality_image
 
     def next_page(self):
         self.press_keys([self.keyboard_key.right])
@@ -60,7 +62,6 @@ class CaptureWindowsOS(setup_key.KeyboardController):
             self.select_frame_size()
             while not exit_flag:
                 _img = self.keyboard_controll()
-                _img.save(f"screenshot{capture_pages}.png")
                 self.image_processing.screenshot_dir = SCREENSHOT_FOLDER
                 rgb_image: PIL = self.image_processing.pillow_image_to_rgb(_img)
                 pixel_image: np.array = self.image_processing.pillow_image_to_pixel(
@@ -85,6 +86,7 @@ class CaptureWindowsOS(setup_key.KeyboardController):
         # optional parameter convert pdf
         if self.is_convert_images_to_pdf:
             setup_files.create_pdf_to_images(PDF_FOLDER, self.image_processing.images)
+            pg.alert("\n\n\n\n\n\nPDF 파일이 생성 되었습니다.\n\n\n\n\n")
 
         # optional parameter remove image files
         if self.is_remove_all_screenshot:

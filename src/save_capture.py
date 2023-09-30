@@ -17,7 +17,6 @@ class Capture:
             "Windows": "Windows",
         }
         system_os = platform.system()
-        # system_os = "Windows"
 
         return os_alias.get(system_os)
 
