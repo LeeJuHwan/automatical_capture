@@ -19,7 +19,7 @@ class CaptureMacOS(setup_key.KeyboardController):
         self.excute_after_wait_second: int = _time
         self.is_remove_all_screenshot: int = _is_remove_screenshot
         self.is_convert_images_to_pdf: int = _is_convert_pdf
-        self.image_processing: ImageProcessing = ImageProcessing()
+        self.image_processing: ImageProcessing = ImageProcessing("Mac")
 
     def select_frame_size(self):
         self.press_keys(
@@ -55,9 +55,8 @@ class CaptureMacOS(setup_key.KeyboardController):
             print(" === get start program === ")
             while not exit_flag:
                 self.keyboard_controll()
-                _img: PIL = self.image_processing.get_capture_image_to_pil(
-                    SCREENSHOT_FOLDER
-                )
+                self.image_processing.screenshot_dir = SCREENSHOT_FOLDER
+                _img: PIL = self.image_processing.get_capture_image_to_pil()
 
                 rgb_image: PIL = self.image_processing.pillow_image_to_rgb(_img)
                 pixel_image: np.array = self.image_processing.pillow_image_to_pixel(

@@ -1,6 +1,7 @@
 from common.settings import setup_optional_args as setup_option
 import platform
 from capture.capture_mac_os import CaptureMacOS
+from capture.capture_windows_os import CaptureWindowsOS
 
 
 class Capture:
@@ -16,11 +17,12 @@ class Capture:
             "Windows": "Windows",
         }
         system_os = platform.system()
+        # system_os = "Windows"
 
         return os_alias.get(system_os)
 
     def run(self):
-        _callable = {"Mac": CaptureMacOS, "Windows": "window"}
+        _callable = {"Mac": CaptureMacOS, "Windows": CaptureWindowsOS}
 
         cls_addr = _callable.get(self.get_os())
         instance = cls_addr(
