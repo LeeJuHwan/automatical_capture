@@ -1,67 +1,42 @@
-import cv2
-from PIL import Image
+from pynput import mouse
+from typing import Optional, Tuple
 
-
-class BoundingBoxWidget:
+class MouseController:
     def __init__(self):
-        self.original_image = cv2.imread("/Users/juhwan.lee/Desktop/temp.png")
-        self.clone = self.original_image.copy()
+        self.x: Optional[int] = None
+        self.y: Optional[int] = None
+        self.w: Optional[int] = None
+        self.h: Optional[int] = None
+        self.bounding_box_position: Tuple(int) = None
 
-        cv2.namedWindow("image")
-        cv2.setMouseCallback("image", self.extract_coordinates)
+    def drag_listen(self):
+        """on press left button to drag listner"""
 
-        self.image_coordinates = []
+        with mouse.Listener(on_click=self._on_press_button_to_drag) as listener:
+            listener.join()
+            
 
-    def extract_coordinates(self, event, x, y, flags, parameters):
-        if event == cv2.EVENT_LBUTTONDOWN:
-            self.image_coordinates = [(x, y)]
+    def _on_press_button_to_drag(self, x: float, y: float, _: object, pressed: object):
+        """top - left click, bottom - right click to bounding box"""
 
-        elif event == cv2.EVENT_LBUTTONUP:
-            self.image_coordinates.append((x, y))
-            print(
-                f"top left: {self.image_coordinates[0]}, bottom right: {self.image_coordinates[1]}"
-            )
-            print(
-                f"x,y,w,h : ({self.image_coordinates[0][0]}, {self.image_coordinates[0][1]}, {self.image_coordinates[1][0] - self.image_coordinates[0][0]}, {self.image_coordinates[1][1] - self.image_coordinates[0][1]}"
-            )
+        if pressed:
+            if not(self.x and self.y):
+                print(f"Drag started at x: {x}, y: {y}")
+                self.x, self.y = int(x), int(y)
 
-            # Draw rectangle
-            cv2.rectangle(
-                self.clone,
-                self.image_coordinates[0],
-                self.image_coordinates[1],
-                (36, 255, 12),
-                2,
-            )
-            cv2.imshow("image", self.clone)
+            elif not(self.w and self.h):
+                print(f"Drag ended at x: {x}, y:{y}")
+                self.w = int(x - self.x)
+                self.h = int(y - self.y)
 
-        # Clear drawing boxes on right mouse button click
-        elif event == cv2.EVENT_RBUTTONDOWN:
-            self.clone = self.original_image.copy()
+                self.bounding_box_position = (self.x, self.y, self.w + abs(self.x), self.h + abs(self.y))
+                print(f"bounding box: {self.bounding_box_position}")
 
-    def show_image(self):
-        return self.clone
-
-    def drag_pixel_size(self):
-        return (
-            self.image_coordinates[0][0],
-            self.image_coordinates[0][1],
-            self.image_coordinates[1][0] - self.image_coordinates[0][0],
-            self.image_coordinates[1][1] - self.image_coordinates[0][1],
-        )
+                # return is listner do not stop
+                return False
 
 
 if __name__ == "__main__":
-    boundingbox_widget = BoundingBoxWidget()
-    while True:
-        cv2.imshow("image", boundingbox_widget.show_image())
-        key = cv2.waitKey(1)
-
-        # Close program with keyboard 'q'
-        if key == ord("q"):
-            x, y, w, h = boundingbox_widget.drag_pixel_size()
-            cv2.destroyAllWindows()
-            img = Image.open("/Users/juhwan.lee/Desktop/temp.png")
-            crop_im = img.crop((x, y, w, h))
-            crop_im.show()
-            exit(1)
+    capture = MouseController()
+    a = capture.drag_listen()
+    print(f"a: {a}")
