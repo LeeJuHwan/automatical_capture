@@ -37,6 +37,9 @@
         3. `If step two true` -> remove image file, limit count increment
         4. `If limit == user-set limit number` -> End all captures, convert captured images to PDFs
 
+    - Convert PDF
+        1. PIL(RGB) object saving array[0] append array[1:]
+
 - Teardown only MacOS
     - Reset options
         - [x] Change the changed filename, screenshot save location default
