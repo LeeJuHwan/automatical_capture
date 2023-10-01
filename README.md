@@ -45,7 +45,7 @@
 
 ### Modify hotkeys
 - [Go to mac OS python file](./src/capture/capture_mac_os.py)
-    ```
+    ```python
     def select_frame_size(self):
         self.press_keys(
             [
@@ -61,8 +61,20 @@
     def next_page(self):
         self.press_keys([self.keyboard_key.right])
     ```
+    - [Go to keyboard module](./src/common/settings/setup_keyboard.py)
+      ```python
+      def keyboard_controll(self):
+    
+            time.sleep(0.2)
+            self.select_frame_size()
+            time.sleep(0.2)
+            self.take_a_screenshot()
+            time.sleep(0.2)
+            self.next_page()
+      ```
+
 - [Go to windows OS python file](./src/capture/capture_windows_os.py)
-    ```
+    ```python
     def select_frame_size(self):
         self.mouse_controller.drag_listen()
         time.sleep(0.2)
@@ -75,6 +87,15 @@
 
     def next_page(self):
         self.press_keys([self.keyboard_key.right])
+
+    def keyboard_controll(self) -> PIL:  # override
+        
+        time.sleep(0.2)
+        _img = self.take_a_screenshot()
+        time.sleep(0.2)
+        self.next_page()
+
+        return _img
     ```
 
 
