@@ -1,67 +1,96 @@
-# automatical_capture_from_macOS_hotkey
+# automatical_capture
 
-### auto PDF Capture program
-> 라이브러리
-- pynput | keyboard handling
-    - [공식문서](https://pynput.readthedocs.io/en/latest/keyboard.html)
+## take a screenshot using shortcut key
 
-> 코드 프로세스
-- 사전 작업
-    - 손쉬운 사용에서 터미널을 사용 가능하게 설정 해야 합니다. 캡쳐 경로 설정, 캡쳐 옵션 설정 작업이 이루어지기 때문입니다.
+### Process
+- Configuration
+    - Need to enable the terminal in "easy of use"
       <br>
       <br>
           ![image](https://github.com/LeeJuHwan/automatical_capture_macOS/assets/118493627/72a795b6-bbd0-496e-9963-300e27c47528)
-    
-    - shift + command + 5를 누르고, PDF의 캡쳐가 필요한 부분의 프레임을 맞춰줍니다. -> 이때, 프레임은 다음 페이지를 넘겼을 때도 전체가 나오게 유지 해야 합니다. 
 
-    - 캡쳐 할 화면을 뷰어를 준비 합니다.
+    - ready for the screen to be captured.
 
     
-- 프로그램 실행 프로세스
-    - 디렉터리
-        - [ ] 스크린샷 파일 명을 변경 합니다.
-        - [ ] 스크린샷 파일을 저장 할 폴더를 생성 합니다.
-        - [ ] PDF를 저장 할 폴더를 생성 합니다.
-        - [ ] 스크린샷 파일 저장 폴더를 지정 합니다.
+- Windows OS
+    - screenshot
+        - [x] Click top-left and bottom-right -> specify capture area
+        - [x] `PIL: Image.Grab()`
+        - [x] RGB color convert
+        - [x] resizing & upscaling
+        - [x] PIL object to save a list
 
-    - 캡쳐 
-        - 반복 페이지 개 수 만큼
-            - [ ] Mac os의 캡쳐 단축키를 누릅니다.
-            - [ ] 캡쳐 버튼을 누릅니다.
-            - [ ] 다음 화면을 넘깁니다.
+- Mac OS
+    - screenshot
+        - [x] Change the folder where the screenshot will be saved
+        - [x] Change the screenshot saving format
+        - [x] Screenshot preview option turn off
+        - [x] `cmd + shift + 5`: use shortcut key
+            - Press shift + command + 5, and frame the part of the PDF that needs to be captured
+        - [x] Open a saved screenshot
+        - [x] PIL object to save a list
 
-    - 이미지
-        - [ ] 이미지 파일을 RGB형태로 변경합니다.
-        - [ ] 이미지 파일들을 1개의 PDF로 생성합니다.
-    
-    - 초기화
-        - [ ] 변경된 파일명, 스크린샷 저장 위치 등을 기존 값으로 변경 합니다.
-        - [ ] 스크린샷 폴더에 있는 파일을 모두 삭제 합니다.
-            - 이 때, 삭제를 원하지 않는다면 시스템 인자 값에서 값을 변경 하여 이를 방지 할 수 있습니다.
+- Common
+    - Find duplicate images
+        1. Image object to pixel(numpy array) for compare
+        2. `If step one true` -> Get image file byte size for compare
+        3. `If step two true` -> remove image file, limit count increment
+        4. `If limit == user-set limit number` -> End all captures, convert captured images to PDFs
 
-### 주의 할 점
-- 단축키를 반복 실행 하는 프로그램이며, 코드를 실행 한 후 캡쳐 할 화면으로 전환 하여야 합니다.
-- 경험상 사전 작업에 설정한 프레임이 PDF에 저장 될 사진이기 때문에 설정을 잘 하는 것이 중요합니다.
+- Teardown only MacOS
+    - Reset options
+        - [x] Change the changed filename, screenshot save location default
+        - [x] Delete all files in the screenshots folder
+            - if you don't want to delete, you can try add system argument `-r 0`
+
+### Modify hotkeys
+- [Go to mac OS python file](./src/capture/capture_mac_os.py)
+    ```
+    def select_frame_size(self):
+        self.press_keys(
+            [
+                self.keyboard_key.shift,
+                self.keyboard_key.cmd_l,
+                pynput.keyboard.KeyCode.from_char("5"),
+            ]
+        )
+
+    def take_a_screenshot(self):
+        self.press_keys([self.keyboard_key.enter])
+
+    def next_page(self):
+        self.press_keys([self.keyboard_key.right])
+    ```
+- [Go to windows OS python file](./src/capture/capture_windows_os.py)
+    ```
+    def select_frame_size(self):
+        self.mouse_controller.drag_listen()
+        time.sleep(0.2)
+
+    def take_a_screenshot(self) -> PIL:
+        _img = ImageGrab.grab(self.mouse_controller.bounding_box_position)  # screen capture -> PIL Object
+        new_size = (_img.width*2, _img.height*2)
+        better_quality_image = _img.resize(new_size, Image.LANCZOS)
+        return better_quality_image
+
+    def next_page(self):
+        self.press_keys([self.keyboard_key.right])
+    ```
 
 
-### 코드 작성자의 의도
-- 반복 캡쳐가 필요한 상황에서 사용자 입력 값에 맞게 단축키를 눌러줄 수 있습니다. 이때, 단축키는 [setup_keyboard](https://github.com/LeeJuHwan/automatical_capture_macOS/blob/main/setup/setup_keyboard.py)에서 변경 할 수 있고 관련 내용은 라이브러리 공식 문서를 참고 하여 수정 할 수 있습니다.
-
-
-### 실행
+### Quick Start
 - git clone
 - install library
     ```
     pip3 install -r requirments.txt
     ```
     
-- python run
+- run
     - system arguments help command
         ```
         optional arguments:
         -h, --help            show this help message and exit
         -t TIME, --time TIME  Run process after wait time >> default = 1
-        -p PAGE, --page PAGE  Count of pages in PDF viewr. this is most parameter
         -r {0,1}, --remove {0,1}
                                 Is saved screenshot files remove all >> 0: keep 1: delete | default = 1
 
@@ -69,21 +98,25 @@
                                 Is screenshot images to PDF >> 0: False 1: True | default = 1
         ```
 
-    e.g -> want to customize value                    
-    ```
-    python3 save_capture.py -t 5 -p 1 -r 0 or 1 -c 0 or 1
-    ```
+    - shell script
+        ```
+        PTYHON FILE PATH: [ /Users/juhwan.lee/Desktop/GitHub/automatical_capture_macOS/src/save_capture.py ] file excution  # python file abs path
+        user OS: Mac  # check your os
+        ============= [Mac OS] capture =============
+        1: start capture program
+        q: to quit
+        ===============================
+        choose index number: 
+        >  1
 
-    e.g2 -> using default value
-    ```
-    python3 save_capture.py -p 700
-    ```
-    
-
-- shell script
-  ```
-  sh capture.py
-  ```
-
-파이썬을 직접적으로 커맨드 라인을 통해 실행 할 수 있지만, 쉘 스크립트를 통해 대화형 커널로 페이지를 입력 하는 방법도 사용 할 수 있습니다.
+        ========== Scripts list ==========
+        1: PROGRAM EXCUTE
+        2: MODIFY PARAMETER
+        q: TO QUIT
+        ===============================
+        choose index number:
+        > 
+        ```
+        - excute: get start
+        - parameter: convert pdf and, delete all screenshot files option
 
