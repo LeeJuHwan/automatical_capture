@@ -80,6 +80,7 @@ class CaptureMacOS(setup_key.KeyboardController):
 
         # optional parameter convert pdf
         if self.is_convert_images_to_pdf:
+            self.image_processing.images = self.image_processing.images[:-1]
             setup_files.create_pdf_to_images(PDF_FOLDER, self.image_processing.images)
 
             setup_dir.reset_screenshot_directory()

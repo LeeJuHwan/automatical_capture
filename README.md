@@ -134,13 +134,13 @@
         >  1
 
         ========== Scripts list ==========
-        1: PROGRAM EXCUTE
+        1: PROGRAM EXECUTE
         2: MODIFY PARAMETER
         q: TO QUIT
         ===============================
         choose index number:
         > 
         ```
-        - excute: get start
+        - execute: get start
         - parameter: convert pdf and, delete all screenshot files option
 
