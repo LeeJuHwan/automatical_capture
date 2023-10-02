@@ -11,14 +11,14 @@ case $OS in
 		OS="Linux"
 		;;
   	"MINGW32")
-    	OS="Windows"
-    	;;
+    		OS="Windows"
+    		;;
   	"MINGW64")
 		OS="Windows"
-    	;;
+    		;;
 	"Darwin") 
-    	OS="Mac"
-    	;;
+    		OS="Mac"
+    		;;
 esac
 
 echo "user OS: $OS"
