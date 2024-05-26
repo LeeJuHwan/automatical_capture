@@ -42,6 +42,8 @@ class CaptureMacOS(setup_key.KeyboardController):
         PDF_FOLDER: os.path = setup_dir.create_directory("pdf")
 
         setup_dir.setup_screenshot_directory(SCREENSHOT_FOLDER)
+        setup_files.audio_disable_or_enable("disable")
+        print(" === mute capture sound === ")
         setup_files.change_preview_options("false")
         print(" === optional parameter setup === ")
         time.sleep(self.excute_after_wait_second)
@@ -86,6 +88,7 @@ class CaptureMacOS(setup_key.KeyboardController):
             setup_dir.reset_screenshot_directory()
             setup_files.change_screenshot_file_name("1")
             setup_files.change_preview_options("true")
+            setup_files.audio_disable_or_enable("enable")
 
         # optional parameter remove image files
         if self.is_remove_all_screenshot:

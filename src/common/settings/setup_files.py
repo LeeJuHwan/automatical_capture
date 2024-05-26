@@ -68,3 +68,17 @@ def remove_screenshot_files(screenshot_folder: os.path):
         shutil.rmtree(screenshot_folder)
 
     create_directory("screenshot")
+
+
+def audio_disable_or_enable(status: str):
+    """
+    disable: 효과음 무음
+    enable: 효과음 재생
+    """
+    options = {
+        "disable": False,
+        "enable": True,
+    }
+    flag = int(options.get(status, True))
+    cmd = f'defaults write com.apple.systemsound "com.apple.sound.uiaudio.enabled" -int {flag}'
+    subprocess.run(["/bin/bash", "-c", cmd])
